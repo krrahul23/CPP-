@@ -41,23 +41,38 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    bool isAlienSorted(vector<string> &words, string order)
     {
-        long int n = 0;
-        while (x != 0)
+        unordered_map<char, int> neworder;
+        for (int i = 0; i < order.length(); i++)
+            neworder[order[i]] = i;
+        for (int i = 1; i < words.size(); i++)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            if (!smaller(words[i - 1], words[i], neworder))
+                return false;
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        return true;
+    }
+
+    bool smaller(string &s1, string &s2, unordered_map<char, int> &order)
+    {
+        int i = 0;
+        while (i < s1.length() && i < s2.length())
+        {
+            int o1 = order[s1[i]];
+            int o2 = order[s2[i]];
+            if (o1 < o2)
+                return true;
+            else if (o1 > o2)
+                return false;
+            i++;
+        }
+        return s1.length() - i <= s2.length() - i;
     }
 };
+
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
 }
 int32_t main()
 {

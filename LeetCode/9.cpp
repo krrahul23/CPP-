@@ -41,23 +41,20 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    bool isPalindrome(int x)
     {
-        long int n = 0;
-        while (x != 0)
-        {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
-        }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        string s = to_string(x);
+        string temp = s;
+        reverse(temp.begin(), temp.end());
+        if (s == temp)
+            return true;
+        else
+            return false;
     }
 };
+
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
 }
 int32_t main()
 {

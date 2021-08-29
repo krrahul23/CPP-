@@ -37,27 +37,23 @@ bool isPrime(int n)
     }
     return true;
 }
-
 class Solution
 {
 public:
-    int reverse(int x)
+    int minMoves(vector<int> &nums)
     {
-        long int n = 0;
-        while (x != 0)
+        int sum = 0, min_no = INT_MAX;
+        for (int i : nums)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            sum += i;
+            min_no = min(min_no, i);
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        return sum - nums.size() * min_no;
     }
 };
+
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
 }
 int32_t main()
 {
