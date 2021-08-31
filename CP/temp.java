@@ -1,13 +1,12 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 class temp {
     public static void main(String[] args) {
-        HashMap<String, Integer> hm = new HashMap<>();
-        hm.put("Rahul", 1);
-        hm.put("Roop", 2);
-        for (Map.Entry element : hm.entrySet()) {
-            System.out.println(element.getValue());
-        }
+        int[] arr = new int[2];
+        arr[0] = 10;
+        arr[1] = 3;
+        Arrays.sort(arr);
+        for (int i : arr)
+            System.out.println(i);
     }
 }
