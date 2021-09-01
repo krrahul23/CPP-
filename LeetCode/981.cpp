@@ -38,49 +38,31 @@ bool isPrime(int n)
     return true;
 }
 
-class Solution
+class TimeMap
 {
 public:
-    int countNegatives(vector<vector<int>> &grid)
+    /** Initialize your data structure here. */
+    unordered_map<string, vector<pair<string, int>>> m;
+    TimeMap()
     {
-        int n = grid.size();
-        int m = grid[0].size();
-        int ans = 0;
-        int i = n - 1;
-        int j = 0;
-        while (i >= 0 && j < m)
-        {
-            if (grid[i][j] < 0)
-            {
-                ans = ans + (m - j);
-                i = i - 1;
-            }
-            else
-                j = j + 1;
-        }
-        return ans;
     }
-};
 
-class Solution
-{
-public:
-    int countNegatives(vector<vector<int>> &a)
+    void set(string key, string value, int timestamp)
     {
-        int ans = 0;
-        int n = a.size();
-        for (int i = 0; i < n; i++)
+        m[key].push_back({value, timestamp});
+    }
+
+    string get(string key, int timestamp)
+    {
+        string ans = "";
+        int low = 0, high = m[key].size();
+        while (low < high)
         {
-            int low = 0, high = a[i].size();
-            while (low < high)
-            {
-                int mid = low + (high - low) / 2;
-                if (a[i][mid] < 0)
-                    high = mid;
-                else
-                    low = mid + 1;
-            }
-            ans += a[i].size() - low;
+            int mid = low + (high - low) / 2;
+            if (m[key][mid].second > timestamp)
+                high = mid;
+            else
+                ans = m[key][mid].first, low = mid + 1;
         }
         return ans;
     }

@@ -37,57 +37,47 @@ bool isPrime(int n)
     }
     return true;
 }
-
-class Solution
+double qexp(ll a, ll b)
 {
-public:
-    int countNegatives(vector<vector<int>> &grid)
+    ll res = 1;
+    while (b)
     {
-        int n = grid.size();
-        int m = grid[0].size();
-        int ans = 0;
-        int i = n - 1;
-        int j = 0;
-        while (i >= 0 && j < m)
-        {
-            if (grid[i][j] < 0)
-            {
-                ans = ans + (m - j);
-                i = i - 1;
-            }
-            else
-                j = j + 1;
-        }
-        return ans;
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
     }
-};
-
+    return res;
+}
 class Solution
 {
 public:
-    int countNegatives(vector<vector<int>> &a)
+    double qexp(double a, long long b)
     {
-        int ans = 0;
-        int n = a.size();
-        for (int i = 0; i < n; i++)
+        double res = 1.0;
+        while (b)
         {
-            int low = 0, high = a[i].size();
-            while (low < high)
-            {
-                int mid = low + (high - low) / 2;
-                if (a[i][mid] < 0)
-                    high = mid;
-                else
-                    low = mid + 1;
-            }
-            ans += a[i].size() - low;
+            if (b & 1)
+                res = res * a;
+            a = a * a;
+            b >>= 1;
         }
-        return ans;
+        return res;
+    }
+    double myPow(double x, int n)
+    {
+        long long newPower = n;
+        if (n < 0)
+            return (double)1.0 / qexp(x, abs(newPower));
+        return qexp(x, newPower);
     }
 };
 
 void solve()
 {
+    Solution s = Solution();
+    double ans = s.myPow(-2.0000, 2);
+    cout << ans << endl;
 }
 int32_t main()
 {

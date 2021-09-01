@@ -41,48 +41,39 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int countNegatives(vector<vector<int>> &grid)
+    int search(vector<int> &v, int target)
     {
-        int n = grid.size();
-        int m = grid[0].size();
-        int ans = 0;
-        int i = n - 1;
-        int j = 0;
-        while (i >= 0 && j < m)
+        if (v.size() == 0)
+            return -1;
+        else
         {
-            if (grid[i][j] < 0)
-            {
-                ans = ans + (m - j);
-                i = i - 1;
-            }
-            else
-                j = j + 1;
-        }
-        return ans;
-    }
-};
-
-class Solution
-{
-public:
-    int countNegatives(vector<vector<int>> &a)
-    {
-        int ans = 0;
-        int n = a.size();
-        for (int i = 0; i < n; i++)
-        {
-            int low = 0, high = a[i].size();
-            while (low < high)
+            int low = 0, high = v.size() - 1;
+            int first = v[0];
+            while (low <= high)
             {
                 int mid = low + (high - low) / 2;
-                if (a[i][mid] < 0)
-                    high = mid;
+                if (v[mid] == target)
+                    return mid;
                 else
-                    low = mid + 1;
+                {
+                    if (v[mid] >= first)
+                    {
+                        if (target >= first && target < v[mid])
+                            high = mid - 1;
+                        else
+                            low = mid + 1;
+                    }
+                    else
+                    {
+                        if (target > v[mid] && target <= v[high])
+                            low = mid + 1;
+                        else
+                            high = mid - 1;
+                    }
+                }
             }
-            ans += a[i].size() - low;
+            return -1;
         }
-        return ans;
     }
 };
 
