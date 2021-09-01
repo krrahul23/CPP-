@@ -40,11 +40,6 @@ bool isPrime(int n)
 
 void solve()
 {
-    vector<string> v = {"aaa", "aa", "a", "ab", "b"};
-    sort(v.begin(), v.end());
-    for (auto i : v)
-        cout << i << " ";
-    cout << endl;
 }
 int32_t main()
 {
