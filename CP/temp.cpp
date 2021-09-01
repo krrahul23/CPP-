@@ -40,6 +40,17 @@ bool isPrime(int n)
 
 void solve()
 {
+    vector<int> v = {4, 2, 1, 1, 0};
+    int low = 0, high = v.size();
+    while (low < high)
+    {
+        int mid = low + (high - low) / 2;
+        if (v[mid] < 0)
+            high = mid;
+        else
+            low = mid + 1;
+    }
+    cout << low << endl;
 }
 int32_t main()
 {
