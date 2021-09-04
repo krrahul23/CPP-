@@ -37,34 +37,31 @@ bool isPrime(int n)
     }
     return true;
 }
-
-class Parent
-{
-private:
-    int a;
-
-public:
-    int b = 10;
-    void setA(int x) { this->a = x; }
-    int getA() { return this->a; }
-    Parent(int x) { cout << "Parent " << x << endl; }
-    Parent() { cout << "Parent " << endl; }
-};
-
-class Child : public Parent
+class Solution
 {
 public:
-    Child() : Parent() {}
-    Child(int x) : Parent(x)
+    bool hasCycle(ListNode *head)
     {
-        Parent::setA(12112);
-        cout << Parent::getA() << endl;
+        if (!head || !head->next)
+            return false;
+
+        ListNode *slow = head->next, *fast = head->next->next;
+
+        while (fast && fast->next)
+        {
+            if (slow == fast)
+                return true;
+
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return false;
     }
 };
 
 void solve()
 {
-    Child c = Child(10);
 }
 int32_t main()
 {
