@@ -37,29 +37,39 @@ bool isPrime(int n)
     }
     return true;
 }
-
 class Solution
 {
 public:
-    int reverse(int x)
+    int splitArray(vector<int> &nums, int m)
     {
-        long int n = 0;
-        while (x != 0)
+        auto check = [&](int x)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            int c = 1;
+            int temp = 0;
+            for (int i : nums)
+            {
+                if (temp + i > x)
+                    temp = i, c++;
+                else
+                    temp += i;
+            }
+            return c <= m;
+        };
+        int low = *max_element(nums.begin(), nums.end()), high = accumulate(nums.begin(), nums.end(), 0);
+        while (low < high)
+        {
+            int mid = low + (high - low) / 2;
+            if (check(mid))
+                high = mid;
+            else
+                low = mid + 1;
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        return low;
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

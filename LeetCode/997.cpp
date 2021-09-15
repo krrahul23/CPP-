@@ -41,25 +41,25 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    int findJudge(int n, vector<vector<int>> &trust)
     {
-        long int n = 0;
-        while (x != 0)
+        vector<int> in(n + 1), out(n + 1);
+        for (auto i : trust)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            in[i[1]]++;
+            out[i[0]]++;
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        for (int i = 1; i <= n; i++)
+        {
+            if (in[i] == n - 1 && out[i] == 0)
+                return i;
+        }
+        return -1;
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

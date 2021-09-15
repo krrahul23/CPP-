@@ -38,28 +38,39 @@ bool isPrime(int n)
     return true;
 }
 
-class Solution
+class MedianFinder
 {
 public:
-    int reverse(int x)
+    priority_queue<int> mxHeap;
+    priority_queue<int> mnHeap;
+    MedianFinder() {}
+
+    void addNum(int num)
     {
-        long int n = 0;
-        while (x != 0)
+        mxHeap.push(num);
+        mnHeap.push(-1 * mxHeap.top());
+        mxHeap.pop();
+        if (mxHeap.size() < mnHeap.size())
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            mxHeap.push(-1 * mnHeap.top());
+            mnHeap.pop();
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+    }
+
+    double findMedian()
+    {
+        return mxHeap.size() > mnHeap.size() ? mxHeap.top() : ((double)mxHeap.top() - mnHeap.top()) * 0.5;
     }
 };
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

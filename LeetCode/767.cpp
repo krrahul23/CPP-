@@ -41,25 +41,36 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    string reorganizeString(string s)
     {
-        long int n = 0;
-        while (x != 0)
+        vector<int> charCount(26);
+        int n = s.size();
+        for (char i : s)
+            charCount[i - 'a']++;
+        priority_queue<pair<int, char>> pq;
+        for (int i = 0; i < 26; i++)
+            pq.push({charCount[i], i + 'a'});
+        if (pq.top().first > (n + 1) / 2)
+            return "";
+        int i = 0;
+        while (pq.size())
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            int m = pq.top().first;
+            char c = pq.top().second;
+            pq.pop();
+            for (int j = 0; j < m; j++)
+            {
+                if (i > n - 1)
+                    i = 1;
+                s[i] = c, i += 2;
+            }
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        return s;
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

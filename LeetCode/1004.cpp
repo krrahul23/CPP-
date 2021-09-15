@@ -63,6 +63,27 @@ public:
         return res == INT_MIN ? 0 : res;
     }
 };
+class Solution
+{
+public:
+    int longestOnes(vector<int> &nums, int k)
+    {
+        int count = k, j = 0, n = nums.size();
+        int res = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (nums[i] == 0)
+                count--;
+            while (count < 0 && j < n)
+            {
+                if (nums[j] == 0)
+                    count++;
+                j++;
+            }
+            res = max(res, i - j + 1);
+        }
+    }
+};
 
 void solve()
 {

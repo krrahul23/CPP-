@@ -53,10 +53,26 @@ class Solution
 public:
     ListNode *reverseList(ListNode *head)
     {
-        ListNode *current = head, *prev = nullptr, temp = current;
-        while (!current)
+        ListNOde *prev = NULL;
+        while (head)
         {
+            ListNode *temp = head->next;
+            head->next = prev;
+            prev = head;
+            head = temp;
         }
+    }
+    ListNode *reverseList(ListNode *head)
+    {
+        return helper(head, NULL);
+    }
+    ListNode *helper(ListNode *head, ListNode prev)
+    {
+        if (!head || !head->next)
+            return head;
+        ListNode *temp = head->next;
+        head->next = prev;
+        return helper(temp, head);
     }
 };
 

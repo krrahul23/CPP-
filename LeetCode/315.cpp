@@ -37,29 +37,30 @@ bool isPrime(int n)
     }
     return true;
 }
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#define ordered_set tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update>
+using namespace __gnu_pbds;
 
 class Solution
 {
 public:
-    int reverse(int x)
+    vector<int> countSmaller(vector<int> &nums)
     {
-        long int n = 0;
-        while (x != 0)
+        int n = nums.size();
+        vector<int> ans(n);
+        ordered_set os;
+        for (int i = n - 1; i >= 0; i--)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            os.insert(make_pair(nums[i], i));
+            ans[i] = os.order_of_key(make_pair(nums[i], i));
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        return ans;
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

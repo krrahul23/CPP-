@@ -41,25 +41,44 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    int maxSumSubmatrix(vector<vector<int>> &matrix, int k)
     {
-        long int n = 0;
-        while (x != 0)
+        int m = matrix.size(), n = matrix[0].size();
+        int sum[m][n], mx = INT_MIN;
+        for (int i = 0; i < m; i++)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            for (int j = 0; j < n; j++)
+            {
+                auto x = matrix[i][j];
+                if (i > 0 && j > 0)
+                    x = x + sum[i - 1][j] + sum[i][j - 1] - sum[i - 1][j - 1];
+                else if (i > 0 && j <= 0)
+                    x = x + sum[i - 1][j];
+                else if (i <= 0 && j > 0)
+                    x = x + sum[i][j - 1];
+                sum[i][j] = x;
+                for (int r = 0; r <= i; r++)
+                {
+                    for (int c = 0; c <= j; c++)
+                    {
+                        auto chk = sum[i][j];
+                        if (r > 0 && c > 0)
+                            chk = chk - sum[r - 1][j] - sum[i][c - 1] + sum[r - 1][c - 1];
+                        else if (r > 0 && c <= 0)
+                            chk = chk - sum[r - 1][j];
+                        else if (r <= 0 && c > 0)
+                            chk = chk - sum[i][c - 1];
+                        if (chk <= k)
+                            mx = max(mx, chk);
+                    }
+                }
+            }
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        return mx;
     }
 };
-
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

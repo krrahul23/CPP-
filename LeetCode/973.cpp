@@ -41,25 +41,30 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    vector<vector<int>> kClosest(vector<vector<int>> &points, int k)
     {
-        long int n = 0;
-        while (x != 0)
+        int n = points.size();
+        priority_queue<pair<int, pair<int, int>>> pq;
+        for (int i = 0; i < n; i++)
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            int x = points[i][0], y = points[i][1];
+            int dist = x * x + y * y;
+            pq.push({-dist, {x, y}});
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        vector<vector<int>> ans;
+        for (int i = 0; i < k; i++)
+        {
+            int x = pq.top().second.first;
+            int y = pq.top().second.second;
+            ans.push_back({x, y});
+            pq.pop();
+        }
+        return ans;
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

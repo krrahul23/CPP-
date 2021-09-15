@@ -38,28 +38,38 @@ bool isPrime(int n)
     return true;
 }
 
+/*
+// Definition for Employee.
+class Employee {
+public:
+    int id;
+    int importance;
+    vector<int> subordinates;
+};
+*/
+
 class Solution
 {
 public:
-    int reverse(int x)
+    int dfs(int id, map<int, Employee *> &mp)
     {
-        long int n = 0;
-        while (x != 0)
-        {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
-        }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        int sum = mp[id]->importance;
+        for (auto subId : mp[id]->subordinates)
+            sum += dfs(subId, mp);
+        return sum;
+    }
+
+    int getImportance(vector<Employee *> employees, int id)
+    {
+        map<int, Employee *> mp;
+        for (auto emp : employees)
+            mp[emp->id] = emp;
+        return dfs(id, mp);
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {

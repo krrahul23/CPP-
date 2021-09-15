@@ -41,25 +41,44 @@ bool isPrime(int n)
 class Solution
 {
 public:
-    int reverse(int x)
+    int networkDelayTime(vector<vector<int>> &times, int n, int k)
     {
-        long int n = 0;
-        while (x != 0)
+        vector<pair<int, int>> adj[n + 1];
+
+        for (int i = 0; i < times.size(); i++)
+            adj[times[i][0]].push_back({times[i][1], times[i][2]});
+
+        priority_queue<pair<int, int>> pq;
+
+        vector<int> distance(n + 1, INT_MAX);
+
+        pq.push({0, k});
+        distance[k] = 0;
+        while (!pq.empty())
         {
-            n = (n * 10) + (x % 10);
-            x = x / 10;
+            int node = pq.top().second;
+            int dist = pq.top().first;
+            pq.pop();
+            for (pair<int, int> i : adj[node])
+            {
+                if (dist + i.second < distance[i.first])
+                {
+                    distance[i.first] = dist + i.second;
+                    pq.push({-(dist + i.second), i.first});
+                }
+            }
         }
-        if (n > INT_MAX || n < INT_MIN)
-            return 0;
-        return n;
+        int ans = INT_MIN;
+        for (int i = 1; i < distance.size(); i++)
+        {
+            ans = max(ans, distance[i]);
+        }
+        return ans == INT_MAX ? -1 : ans;
     }
 };
 
 void solve()
 {
-    string mx = to_string(INT_MAX);
-    string mn = to_string(INT_MIN);
-    cout << mx << " " << mn << endl;
 }
 int32_t main()
 {
