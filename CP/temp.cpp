@@ -40,6 +40,9 @@ bool isPrime(int n)
 
 void solve()
 {
+    int n;
+    cin >> n;
+    cout << n;
 }
 int32_t main()
 {
