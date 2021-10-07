@@ -38,6 +38,39 @@ bool isPrime(int n)
     return true;
 }
 
+class Solution
+{
+public:
+    vector<int> maxSlidingWindow(vector<int> &nums, int k)
+    {
+        deque<int> d;
+        vector<int> ret;
+        for (int i = 0; i < k; i++)
+        {
+            while (!d.empty() && nums[i] > nums[d.back()])
+            {
+                d.pop_back();
+            }
+            d.push_back(i);
+        }
+        for (int i = k; i < nums.size(); i++)
+        {
+            ret.push_back(nums[d.front()]);
+            if (!d.empty() && d.front() <= i - k)
+            {
+                d.pop_front();
+            }
+            while (!d.empty() && nums[i] >= nums[d.back()])
+            {
+                d.pop_back();
+            }
+            d.push_back(i);
+        }
+        ret.push_back(nums[d.front()]);
+        return ret;
+    }
+};
+
 void solve()
 {
 }

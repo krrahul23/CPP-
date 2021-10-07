@@ -38,6 +38,46 @@ bool isPrime(int n)
     return true;
 }
 
+class Solution
+{
+public:
+    int nthUglyNumber(int n)
+    {
+        if (n == 1)
+            return 1;
+        set<int> s;
+        s.insert(1);
+        vector<int> v = {2, 3, 5, 6, 10, 15, 30};
+        for (int i : v)
+            s.insert(i);
+        bool flag = true;
+        while (flag)
+        {
+            for (int i : v)
+            {
+                flag = false;
+                for (auto it = s.begin(); it != s.end(); it++)
+                {
+                    if (s.size() < n && !s.count((*it) * i))
+                    {
+                        flag = true;
+                        s.insert((*it) * i);
+                    }
+                    else
+                    {
+                        if ((*it) * (i) < *s.rbegin() && !s.count((*it) * i))
+                        {
+                            flag = true;
+                            s.erase(prev(s.end()));
+                            s.insert((*it) * i);
+                        }
+                    }
+                }
+            }
+        }
+        return *s.rbegin();
+    }
+};
 void solve()
 {
 }

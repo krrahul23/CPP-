@@ -1,13 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+void m(int k)
+{
+    printf("hi");
+}
+void m(double k)
+{
+    printf("hello");
+}
+
 int main()
 {
-    char *p = "Hello my name is";
-    char *q = malloc(strlen(p) + 1);
-    strcpy(q, p);
-    printf("%s\n", q);
-    printf("%s\n", p);
-    free(q);
+    m(3);
     return 0;
 }

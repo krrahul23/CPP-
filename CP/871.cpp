@@ -38,6 +38,26 @@ bool isPrime(int n)
     return true;
 }
 
+class Solution
+{
+public:
+    int minRefuelStops(int target, int startFuel, vector<vector<int>> &stations)
+    {
+        int ans = 0, k = 0, total = startFuel;
+        priority_queue<int> pq;
+        while (total < target)
+        {
+            for (; k < size(stations) && stations[k][0] <= total; ++k)
+                pq.push(stations[k][1]);
+            if (pq.empty())
+                return -1;
+            total += pq.top(), pq.pop();
+            ans += 1;
+        }
+        return ans;
+    }
+};
+
 void solve()
 {
 }

@@ -38,6 +38,33 @@ bool isPrime(int n)
     return true;
 }
 
+class Solution
+{
+public:
+    int furthestBuilding(vector<int> &heights, int bricks, int ladders)
+    {
+        priority_queue<int> pq;
+        int n = heights.size();
+        for (int i = 1; i < n; i++)
+        {
+            if (heights[i] - heights[i - 1] > 0)
+            {
+                if (bricks < heights[i] - heights[i - 1] && ladders == 0)
+                    return i - 1;
+                bricks -= heights[i] - heights[i - 1];
+                pq.push(heights[i] - heights[i - 1]);
+                while (bricks < 0 && ladders > 0)
+                {
+                    bricks += pq.top();
+                    pq.pop();
+                    ladders--;
+                }
+            }
+        }
+        return n - 1;
+    }
+};
+
 void solve()
 {
 }
