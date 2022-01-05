@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-void m(int k)
+void len(char *s, char *t)
 {
-    printf("hi");
-}
-void m(double k)
-{
-    printf("hello");
+    unsigned int c = 0;
+    int len = ((strlen(s) - strlen(t)) > c) ? strlen(s) : strlen(t);
+    printf("%d", len);
 }
 
 int main()
 {
-    m(3);
+    char *x = "abc";
+    char *y = "defgh";
+    len(x, y);
     return 0;
 }

@@ -1,8 +1,12 @@
-str = input()
-all_digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
-ans = 0
-for i in str:
-    if i in all_digits:
-        ans += 1
-print(ans)
+
+def tower(n, source, dest, aux):
+    if(n == 1):
+        print("Move 1 disc from ", source, "to ", dest)
+    else:
+        tower(n-1, source, aux, dest)
+        print("Move ", n, " disc from ", source, " to ", dest)
+        tower(n-1, aux, dest, source)
+
+
+tower(3, "Source", "Destinatioun", "Auxillary")

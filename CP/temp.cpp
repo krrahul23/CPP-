@@ -40,9 +40,26 @@ bool isPrime(int n)
 
 void solve()
 {
-    int n;
-    cin >> n;
-    cout << n;
+    int n = 876993;
+    vector<string> v(46952);
+    vector<string> lat(214);
+    for (int i = 0; i < 214; i++)
+    {
+        string t;
+        cin >> t;
+        lat[i] = t;
+    }
+    int ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int t;
+        cin >> t;
+        if (t % 3 == 0)
+            cout << 88.363044 << endl;
+        else
+            cout << lat[t % 214] << endl;
+    }
+    cout << ans << endl;
 }
 int32_t main()
 {
